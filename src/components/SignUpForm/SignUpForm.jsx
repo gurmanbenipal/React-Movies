@@ -1,31 +1,31 @@
-import {useState} from 'react';
+import { useState } from "react";
 
-export default function SignUpForm({ signUp }) {
-    const [formData, setFormData] = useState({
-        name: ""
+export default function SignUpForm({handleSignUp}){
+    const [formData, setFormData]= useState({
+        name: "",
     });
 
-    function handleUser(evt) {
+    function handleChange(evt){
+        const newFormData = {...formData, [evt.target.name]: evt.target.value}
+        setFormData(newFormData)
+    }
+    function handleSubmit(evt){
         evt.preventDefault();
-        signUp(formData.name)
+        handleSignUp(formData.name);
     }
 
-    function handleChange(evt) {
-        const newFormData = { ...formData, [evt.target.name]: evt.target.value };
-        setFormData(newFormData);
-    }
-
+    
     return(
-        <>
-            <h3>Enter a Username to Sign Up</h3>
-            <form onSubmit={handleUser}>
-                <div>
-                    <label>Username</label>
-                    <input type="text" name="name" value={formData.name} onChange={handleChange}></input>
-                </div>
-                <br></br>
-                <button type="submit">Log In</button>
-            </form>
-        </>
+        <form onSubmit={handleSubmit}>
+            <label>
+                Username: 
+                <input
+                name='name'
+                value={formData.name}
+                onChange={handleChange} 
+                />
+            </label>
+                <button type="submit">Sign In</button>
+        </form> 
     )
 }

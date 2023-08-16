@@ -1,17 +1,24 @@
 
+import './MovieCard.css';
 import { Link } from 'react-router-dom';
 
-export default function MovieCard(props) {
+export default function MovieCard({ movie, index }) {
+    const imageURL = movie.posterPath;
+
+    const cardStyle = {
+        backgroundImage: `url(${imageURL})`
+    }
+
     return (
-      <>
-        <Link to={`/movies/${props.movie.title}`} className="movie-link">
-          <div style={{"background": `url(${props.movie.poster_path}) no-repeat center center`, "WebkitBackgroundSize": "cover"}} className="item-card">
-            <div className="title">
-              <h1>{props.movie.title}</h1>
-              <h4>Released: {props.movie.release_date}</h4>
-            </div>
-          </div>
-        </Link>
-      </>
-    );
-  }
+        <>
+            <Link to={`/movies/${(movie.title)}`}>
+                <div className="card" style={cardStyle}>
+                    <div className="MovieContent">
+                        <p>{movie.title}</p>
+                        <p>{movie.releaseDate}</p>
+                    </div>
+                </div>
+            </Link>
+        </>
+    )
+}
